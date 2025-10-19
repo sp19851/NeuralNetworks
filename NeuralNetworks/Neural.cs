@@ -9,11 +9,11 @@ namespace NeuralNetworks
         public NeuralType NeuralType { get; }
         public double Output { get; private set; }
 
-        public Neural(int inputCount, NeuralType neuralType = NeuralType.Normal)
+        public Neural(int inputCount, NeuralType neuralType = NeuralType.Hidden)
         {
             NeuralType = neuralType;
             Weights = new List<double>();
-
+            //входной слой всеггда имеет вес 1
             for (var i = 0; i < inputCount; i++)
             {
                 Weights.Add(1);
@@ -27,8 +27,8 @@ namespace NeuralNetworks
             {
                 sum += Weights[i] * inputs[i];
             }
-
-            Output = Sigmoid(sum);
+            //Для входных нейронов сигмоидная функция не применяется
+            Output = NeuralType != NeuralType.Input ? Sigmoid(sum) : sum;
             return Output;
         }
 
@@ -43,11 +43,11 @@ namespace NeuralNetworks
            //todo проверить соотвествие количекства весов и входов у нейрона 
            
            //todo Удалить помле добавления возможности обучения сети
-           /*for (var i= 0; i < weights.Length; i++)
+           for (var i= 0; i < weights.Length; i++)
            {
-               Weights[i] = (weights[i]);
-           }*/
-           Weights.AddRange(weights);
+               Weights[i] = weights[i];
+           }
+           //Weights.AddRange(weights);
         }
         
         public override string ToString()

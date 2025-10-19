@@ -59,7 +59,7 @@ namespace NeuralNetworks
         {
             var outputNeurals = new List<Neural>();
             var lastLayer = Layers.Last();
-            for (var i = 0; i < Topology.InputCount; i++)
+            for (var i = 0; i < Topology.OutputCount; i++)
             {
                 //выходные нейроны могут иметь разное количество выходов, в зависимости от количества нейронов предыдущем слое
                 var neural = new Neural(lastLayer.Count, NeuralType.Output);

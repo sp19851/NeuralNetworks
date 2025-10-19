@@ -9,7 +9,7 @@ namespace NeuralNetworks
         public int Count => Neurals?.Count ?? 0;
 
 
-        public Layer(List<Neural> neurals, NeuralType neuralType = NeuralType.Normal)
+        public Layer(List<Neural> neurals, NeuralType neuralType = NeuralType.Hidden)
         {
             //todo проверить все входные данные на соответсвеи типу. Прогграммирование по контракту 
             if (!neurals.TrueForAll(n=>n.NeuralType == neuralType)) return;
