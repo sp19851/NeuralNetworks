@@ -7,7 +7,7 @@ namespace NeuralNetworks
     {
         public List<double> Weights { get; }
         //Добавляем входные сигналы для обучения
-        public List<double> Inputs { get; }
+        private List<double> Inputs { get; }
         public NeuralType NeuralType { get; }
         public double Output { get; private set; }
         //Добавляем дельту для обучения
@@ -28,15 +28,21 @@ namespace NeuralNetworks
             var rnd = new Random();
             for (var i = 0; i < inputCount; i++)
             {
-                Weights.Add(rnd.NextDouble());
+                //у входных нейронов вес всегда 1
+                if (NeuralType == NeuralType.Input)
+                {
+                    Weights.Add(1);
+                }
+                else
+                {
+                    Weights.Add(rnd.NextDouble());    
+                }
                 Inputs.Add(0);
             }
         }
 
         public double FeedForward(List<double> inputs)
         {
-            
-            
             var sum = 0.0;
             for (var i = 0; i < inputs.Count; i++)
             {
@@ -61,7 +67,7 @@ namespace NeuralNetworks
             return sigmoid / (1-sigmoid);
         }
 
-        public void SetWeights(params double[] weights)
+        /*public void SetWeights(params double[] weights)
         {
            //todo проверить соотвествие количекства весов и входов у нейрона 
            
@@ -71,7 +77,7 @@ namespace NeuralNetworks
                Weights[i] = weights[i];
            }
            
-        }
+        }*/
 
         public void Lern(double error, double learningRate)
         {
