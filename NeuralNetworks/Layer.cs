@@ -6,7 +6,8 @@ namespace NeuralNetworks
     public class Layer
     {
         public List<Neural> Neurals { get; }
-        public int Count => Neurals?.Count ?? 0;
+        public int NeuralCount => Neurals?.Count ?? 0;
+        private NeuralType NeuralType { get; }
 
 
         public Layer(List<Neural> neurals, NeuralType neuralType = NeuralType.Hidden)
@@ -14,11 +15,17 @@ namespace NeuralNetworks
             //todo проверить все входные данные на соответсвеи типу. Прогграммирование по контракту 
             if (!neurals.TrueForAll(n=>n.NeuralType == neuralType)) return;
             Neurals = neurals;
+            NeuralType = neuralType;
         }
 
         public List<double> GetSignals()
         {
             return Neurals.Select(neural => neural.Output).ToList();
+        }
+
+        public override string ToString()
+        {
+            return NeuralType.ToString();
         }
     }
 }
